@@ -1,0 +1,30 @@
+{
+  "name": "fitness-and-meal-tracker",
+  "version": "0.1.0",
+  "description": "Backend service for meal photo analysis and meal logging",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "multer": "^2.0.2",
+    "uuid": "^11.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.13.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3"
+  }
+}
