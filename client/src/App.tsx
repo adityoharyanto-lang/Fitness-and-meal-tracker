@@ -391,10 +391,12 @@ const CATEGORY_KEYWORDS: Array<[FoodCategory, RegExp]> = [
   ['beverage', /\b(juice|soda|cola|water|coffee|tea|latte|smoothie|milkshake|beer|wine|drink)\b/i],
   ['dairy', /\b(cheese|milk|yogurt|yoghurt|butter|cream|mozzarella|cheddar|parmesan)\b/i],
   ['sauce_condiment', /\b(sauce|dressing|dip|ketchup|mayo|mayonnaise|mustard|gravy|salsa|vinaigrette|syrup)\b/i],
+  // produce checked before fruit so compounds like "cherry tomatoes" or "grape tomatoes"
+  // resolve to produce, not to the fruit whose name they merely contain
+  ['produce', /\b(salad|broccoli|spinach|lettuce|carrot|cucumber|tomato|tomatoes|pepper|onion|kale|vegetable|veggies|greens|zucchini|cabbage|olive|olives)\b/i],
   ['fruit', /\b(apple|banana|orange|grape|berry|berries|mango|pineapple|melon|watermelon|peach|pear|kiwi|cherry|cherries|fruit)\b/i],
   ['grain', /\b(rice|bread|pasta|noodle|noodles|toast|bun|bagel|cereal|oat|oats|quinoa|tortilla|potato|potatoes|fries)\b/i],
-  ['protein', /\b(chicken|beef|pork|fish|salmon|tuna|shrimp|egg|eggs|tofu|steak|bacon|sausage|turkey|lamb|meat|patty)\b/i],
-  ['produce', /\b(salad|broccoli|spinach|lettuce|carrot|cucumber|tomato|pepper|onion|kale|vegetable|veggies|greens|zucchini|cabbage)\b/i],
+  ['protein', /\b(chicken|beef|pork|fish|salmon|tuna|shrimp|egg|eggs|tofu|steak|bacon|sausage|turkey|lamb|meat|patty|salami|ham|pepperoni|prosciutto|chorizo|chickpea|chickpeas|lentil|lentils|bean|beans)\b/i],
 ];
 
 function categorizeFood(name: string): FoodCategory {
