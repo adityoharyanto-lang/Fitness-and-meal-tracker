@@ -327,6 +327,17 @@ input {
   border-radius: var(--radius);
 }
 
+.food-icon {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+}
+
 .food-row-main {
   flex: 1;
   min-width: 0;

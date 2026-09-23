@@ -372,6 +372,38 @@ function SuccessScreen({ totalGrams }: { totalGrams: number }) {
   );
 }
 
+// ---- Food category icon inference (client-side, name-based) ----
+
+type FoodCategory = 'produce' | 'protein' | 'grain' | 'dairy' | 'sauce_condiment' | 'fruit' | 'beverage' | 'other';
+
+const CATEGORY_ICONS: Record<FoodCategory, string> = {
+  produce: '🥦',
+  protein: '🍗',
+  grain: '🍚',
+  dairy: '🧀',
+  sauce_condiment: '🥣',
+  fruit: '🍎',
+  beverage: '🥤',
+  other: '🍽️',
+};
+
+const CATEGORY_KEYWORDS: Array<[FoodCategory, RegExp]> = [
+  ['beverage', /\b(juice|soda|cola|water|coffee|tea|latte|smoothie|milkshake|beer|wine|drink)\b/i],
+  ['dairy', /\b(cheese|milk|yogurt|yoghurt|butter|cream|mozzarella|cheddar|parmesan)\b/i],
+  ['sauce_condiment', /\b(sauce|dressing|dip|ketchup|mayo|mayonnaise|mustard|gravy|salsa|vinaigrette|syrup)\b/i],
+  ['fruit', /\b(apple|banana|orange|grape|berry|berries|mango|pineapple|melon|watermelon|peach|pear|kiwi|cherry|cherries|fruit)\b/i],
+  ['grain', /\b(rice|bread|pasta|noodle|noodles|toast|bun|bagel|cereal|oat|oats|quinoa|tortilla|potato|potatoes|fries)\b/i],
+  ['protein', /\b(chicken|beef|pork|fish|salmon|tuna|shrimp|egg|eggs|tofu|steak|bacon|sausage|turkey|lamb|meat|patty)\b/i],
+  ['produce', /\b(salad|broccoli|spinach|lettuce|carrot|cucumber|tomato|pepper|onion|kale|vegetable|veggies|greens|zucchini|cabbage)\b/i],
+];
+
+function categorizeFood(name: string): FoodCategory {
+  for (const [category, pattern] of CATEGORY_KEYWORDS) {
+    if (pattern.test(name)) return category;
+  }
+  return 'other';
+}
+
 // ---- FoodItemRow (shared across detected / empty / error states) ----
 
 interface FoodItemRowProps {
@@ -395,8 +427,13 @@ function FoodItemRow({ item, onChange, onRemove }: FoodItemRowProps) {
     setEditing(false);
   }
 
+  const icon = CATEGORY_ICONS[categorizeFood(item.name)];
+
   return (
     <li className="food-row">
+      <span className="food-icon" aria-hidden="true">
+        {icon}
+      </span>
       <div className="food-row-main">
         <input
           className="food-name"
